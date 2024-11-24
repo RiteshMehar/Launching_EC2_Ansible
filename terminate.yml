@@ -1,0 +1,17 @@
+- hosts: localhost
+  gather_facts: False
+  vars:
+    region: "ap-south-1"
+    tag: "Ansible_instance"
+
+
+  tasks:
+    - name: "Terminate the Ansible_instance"
+      amazon.aws.ec2_instance:
+        state: absent
+        region: "{{ region }}"
+        tags:
+          Name: "{{ tag }}"
+        access_key: "YOUR_ACCESS_KEY"
+        secret_key: "YOUR_SECRET_KEY"
+
