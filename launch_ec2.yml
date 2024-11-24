@@ -1,0 +1,25 @@
+- hosts: localhost
+  gather_facts: False
+  vars:
+    instance_type: "t2.micro"
+    image_id: "ami-022ce6f32988af5fa"
+    region: "ap-south-1"
+    key: "mumbai_key"
+    tag: "Ansible_instance"
+    aws_access_key: "YOUR_ACCESS_KEY"  # Replace with your access key
+    aws_secret_key: "YOUR_SECRET_KEY"  # Replace with your secret key
+
+  tasks:
+    - name: "Launch a EC2 instance using Ansible"
+      amazon.aws.ec2_instance:
+        instance_type: "{{ instance_type }}"
+        region: "{{ region }}"
+        image_id: "{{ image_id }}"
+        security_groups: "default"
+        key_name: "{{ key }}"
+        count: 1
+        tags:
+          Name: "{{ tag }}"
+        access_key: "{{ aws_access_key }}"
+        secret_key: "{{ aws_secret_key }}"
+      register: ec2_instance
